@@ -27,10 +27,10 @@ public class Repository {
         this.source = SourceManager.getSource(sourceId);
     }
 
-    public void novels(int page, Callback<List<Book>> callback) {
+    public void novels(  Callback<List<Book>> callback) {
         executor.execute(() -> {
             try {
-                List<Book> result = source.novels(page);
+                List<Book> result = source.novels();
                 callback.onComplete(result);
             } catch (Exception e) {
                 callback.onError(e);

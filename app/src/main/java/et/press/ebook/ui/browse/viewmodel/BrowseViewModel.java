@@ -12,7 +12,6 @@ import java.util.List;
 public class BrowseViewModel extends ViewModel {
     private MutableLiveData<String> error = new MutableLiveData<>();
     private MutableLiveData<List<Book>> items;
-    private int page = 0;
 
     public MutableLiveData<List<Book>> getNovels() {
         if (items == null) {
@@ -26,8 +25,8 @@ public class BrowseViewModel extends ViewModel {
     }
 
     public void novels() {
-        page += 1;
-        new Repository().novels(page, new Repository.Callback<List<Book>>() {
+
+        new Repository().novels( new Repository.Callback<List<Book>>() {
             @Override
             public void onComplete(List<Book> result) {
                 List<Book> old = items.getValue();

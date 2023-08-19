@@ -1,13 +1,21 @@
 package et.press.ebook.ui.browse.adapter;
 
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
+import et.press.book.R;
 import et.press.book.databinding.ItemNovelBinding;
 import et.press.ebook.models.Book;
 
@@ -36,10 +44,27 @@ public class NovelAdapter extends RecyclerView.Adapter<NovelAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Book item = items.get(position);
-        holder.binding.novelName.setText(item.bookName);
+        holder.binding.novelName.setText("Title:::"+item.bookName);
+
         Glide.with(holder.binding.novelCover.getContext())
                 .load(item.coverUrl)
-                .into(holder.binding.novelCover);
+                .placeholder(R.drawable.ic_discord) // Set your placeholder image resource
+                .error(R.drawable.ic_android) // Set your error image resource
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        e.logRootCauses("String");
+                        Log.e("TAG", ">>>>>onLoadFailed: ", e);
+                        return false; // Return false to allow the error placeholder to be displayed
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                         return false;
+                    }
+                })
+                .into(holder.binding.novelCover)
+        ;
     }
 
     @Override

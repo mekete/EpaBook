@@ -17,10 +17,13 @@ public class EpaBook extends Book {
     public float version;
     public int publishedYear;
 
-    public EpaBook(String url) {
+    public EpaBook(String url, String bookName,String  coverUrl, String summary) {
         super(url);
         this.bookUuid = SourceUtils.generateId(url);
         this.url = url;
+        this.bookName = bookName;
+        this.coverUrl = coverUrl;
+        this.summary = summary;
     }
 
     public EpaBook(String contentUrl, String bookName, List<String> alternateNames, String summary, List<String> authors, List<String> genres, String status, float version, int publishedYear) {

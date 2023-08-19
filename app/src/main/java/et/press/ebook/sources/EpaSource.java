@@ -3,52 +3,42 @@ package et.press.ebook.sources;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
-import et.press.ebook.config.EpaConfig;
-import et.press.ebook.models.Book;
-import et.press.ebook.models.Chapter;
-import et.press.ebook.models.EpaChapter;
-import et.press.ebook.models.DataSource;
-import et.press.ebook.models.EpaBook;
-import et.press.ebook.models.Filter;
-import et.press.ebook.network.HttpClient;
-import et.press.ebook.util.NumberUtils;
-import et.press.ebook.util.SourceUtils;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import et.press.ebook.models.Book;
+import et.press.ebook.models.Chapter;
+import et.press.ebook.models.DataSource;
+import et.press.ebook.models.EpaBook;
+import et.press.ebook.models.EpaChapter;
+import et.press.ebook.models.Filter;
+import et.press.ebook.network.HttpClient;
+import et.press.ebook.util.NumberUtils;
+import et.press.ebook.util.SourceUtils;
+
 public class EpaSource implements Source {
 
     @Override
     public DataSource metadata() {
         DataSource source = new DataSource();
-         source.jsonUrl = "https://ranobe-org.github.io/";
-        source.name = "EpaConfig Originals";
-        source.lang = EpaConfig.Language.ENGLISH;
-        source.logo = "https://ranobe-org.github.io/.github/tiny.png";
+        source.jsonUrl = "https://ranobe-org.github.io/";
+        //We may add some fields if necessary like tokenUrl....
+        source.name = "Some name";
         return source;
     }
 
     @Override
-    public List<Book> novels(int page) throws Exception {
+    public List<Book> novels() throws Exception {
         List<Book> items = new ArrayList<>();
-        if (page > 1) {
-            throw new Exception("well");
-        }
 
-        EpaBook epaBook = new EpaBook("https://ranobe-org.github.io/level-unknown");
-        epaBook.bookName = "What is your epaBook?";
-        epaBook.coverUrl = "https://github.com/ranobe-org/level-unknown/raw/main/cover.jpg";
-//        epaBook.sourceId = sourceId;
+
+        EpaBook epaBook = new EpaBook("https://ranobe-org.github.io/level-unknown", "What is your epaBook?", "https://github.com/ranobe-org/level-unknown/raw/main/cover.jpg","");
         items.add(epaBook);
 
-        EpaBook epaBook1 = new EpaBook("https://ranobe-org.github.io/elevator");
-        epaBook1.bookName = "Elevator";
-        epaBook1.coverUrl = "https://github.com/ranobe-org/elevator/raw/main/cover.jpg";
-//        epaBook1.sourceId = sourceId;
+        EpaBook epaBook1 = new EpaBook("https://ranobe-org.github.io/elevator", "Elevator", "https://github.com/ranobe-org/elevator/raw/main/cover.jpg","");
         items.add(epaBook1);
 
         return items;
@@ -56,14 +46,12 @@ public class EpaSource implements Source {
 
     @Override
     public EpaBook details(String url) throws IOException {
-        EpaBook epaBook = new EpaBook(url);
         Element doc = Jsoup.parse(HttpClient.GET(url, new HashMap<>()));
 
-//        epaBook.sourceId = sourceId;
-        epaBook.bookName = doc.select("h1.menu-title").text().trim();
-        epaBook.coverUrl = doc.select("img").attr("src").trim();
-        epaBook.summary = doc.select("h2#summary").nextAll().select("p").text();
-        epaBook.version = 0;
+        String bookName = doc.select("h1.menu-title").text().trim();
+        String coverUrl = doc.select("img").attr("src").trim();
+        String summary = doc.select("h2#summary").nextAll().select("p").text();
+        EpaBook epaBook = new EpaBook(url, bookName, coverUrl,summary);
 
         for (Element element : doc.select("main > ul > li")) {
             String value = element.text().trim();

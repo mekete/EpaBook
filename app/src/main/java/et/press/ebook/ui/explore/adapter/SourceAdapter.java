@@ -46,11 +46,11 @@ public class SourceAdapter extends RecyclerView.Adapter<SourceAdapter.MyViewHold
         holder.binding.sourceName.setText(source.name);
         holder.binding.sourceContent.setText(String.format(
                 Locale.getDefault(),
-                "%s • %s", source.lang
+                "%s • %s"
         ));
-        Glide.with(holder.binding.sourceLogo.getContext())
-                .load(source.logo)
-                .into(holder.binding.sourceLogo);
+//        Glide.with(holder.binding.sourceLogo.getContext())
+//                .load(source.logo)
+//                .into(holder.binding.sourceLogo);
     }
 
     @Override

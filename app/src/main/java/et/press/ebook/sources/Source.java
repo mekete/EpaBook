@@ -13,7 +13,7 @@ public interface Source {
     DataSource metadata();
 
     // get the list of novels based on page
-    List<Book> novels(int page) throws Exception;
+    List<Book> novels( ) throws Exception;
 
     // get all the fields for a single novel
     EpaBook details(String url) throws Exception;

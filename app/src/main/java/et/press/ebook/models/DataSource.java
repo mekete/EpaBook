@@ -6,8 +6,6 @@ public class DataSource {
     public int sourceId;
     public String jsonUrl;
     public String name;
-    public String lang;
-    public String logo;
 
     @NonNull
     @Override
