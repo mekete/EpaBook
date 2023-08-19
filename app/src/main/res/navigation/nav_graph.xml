@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@+id/browse_fragment">
+
+    <fragment
+        android:id="@+id/browse_fragment"
+        android:name="et.press.ebook.ui.browse.Browse"
+        android:label="fragment_browse"
+        tools:layout="@layout/fragment_browse">
+        <action
+            android:id="@+id/browse_fragment_to_details"
+            app:destination="@id/details_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/search_fragment"
+        android:name="et.press.ebook.ui.search.Search"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/search_fragment_to_details"
+            app:destination="@id/details_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/explore_fragment"
+        android:name="et.press.ebook.ui.explore.Explore"
+        android:label="fragment_explore"
+        tools:layout="@layout/fragment_explore" />
+
+    <fragment
+        android:id="@+id/settings_fragment"
+        android:name="et.press.ebook.ui.settings.Settings"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/details_fragment"
+        android:name="et.press.ebook.ui.details.Details"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details">
+        <action
+            android:id="@+id/details_fragment_to_chapters"
+            app:destination="@id/chapters_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/chapters_fragment"
+        android:name="et.press.ebook.ui.chapters.Chapters"
+        android:label="fragment_chapters"
+        tools:layout="@layout/fragment_chapters"/>
+
+    <fragment
+        android:id="@+id/error_fragment"
+        android:name="et.press.ebook.ui.error.Error"
+        android:label="fragment_error"
+        tools:layout="@layout/fragment_error" />
+
+</navigation>
