@@ -1,5 +1,7 @@
 package et.press.ebook.network.repository;
 
+import android.util.Log;
+
 import et.press.ebook.config.EpaSettings;
 import et.press.ebook.models.Book;
 import et.press.ebook.models.Chapter;
@@ -55,6 +57,10 @@ public class Repository {
                 //TODO check this???
                 String url=(chapterUrl!=null)?chapterUrl:bookUrl;
                 List<Chapter> items = source.chapters(url);
+
+                for (StackTraceElement stackTraceElement : Thread.currentThread().getStackTrace()) {
+                    Log.e("TAG", "chapters: "+stackTraceElement.getClassName()+">>"+stackTraceElement.getMethodName()+">>>"+stackTraceElement.getLineNumber());
+                }
                 callback.onComplete(items);
             } catch (Exception e) {
                 callback.onError(e);

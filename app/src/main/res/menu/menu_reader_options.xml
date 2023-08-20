@@ -1,9 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <item
+        android:id="@+id/action_left"
+        android:icon="@drawable/ic_left"
+        android:title="Left"
+        app:showAsAction="ifRoom"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
     <item
         android:id="@+id/customize_settings"
         android:icon="@drawable/ic_settings"
         android:title="@string/nav_settings"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_scrollFlags="scroll|enterAlways" />
+
+    <item
+        android:id="@+id/action_right"
+        android:icon="@drawable/ic_right"
+        android:title="Right"
+        app:showAsAction="ifRoom"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
 </menu>
